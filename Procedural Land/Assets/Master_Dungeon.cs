@@ -106,9 +106,9 @@ public class Master_Dungeon : MonoBehaviour
   {
     string data = "";
 
-    for (int y = arr_tile.GetUpperBound(0); y >= 0; y--)
+    for (int y = arr_tile.GetUpperBound(1); y >= 0; y--)
       {
-        for (int x = 0; x <= arr_tile.GetUpperBound(1); x++)
+        for (int x = 0; x <= arr_tile.GetUpperBound(0); x++)
           {
             char tile = arr_tile[x, y];
             data += tile.ToString();

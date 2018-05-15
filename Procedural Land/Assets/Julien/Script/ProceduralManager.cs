@@ -51,7 +51,7 @@ public class ProceduralManager : MonoBehaviour
 
   void CreateBase()
   {
-    Room room = new Room(0, 0, 10, 10);
+    Room room = new Room(0, 0, width, height);
 
     tableau = Master_Dungeon.create_board(room.width, room.height);
 
@@ -59,23 +59,23 @@ public class ProceduralManager : MonoBehaviour
       {
         for (int j = 0; j < room.height; j++)
           {
-            tableau[j, i] = ' ';
+            tableau[i, j] = ' ';
             if (i == 0)
               {
-                tableau[j, i] = '1';
+                tableau[i, j] = '1';
               }
-            if (i == room.height - 1)
+            if (i == room.width - 1)
               {
-                tableau[j, i] = '1';
+                tableau[i, j] = '1';
               }
 
             if (j == 0)
               {
-                tableau[j, i] = '1';
+                tableau[i, j] = '1';
               }
             if (j == room.height - 1)
               {
-                tableau[j, i] = '1';
+                tableau[i, j] = '1';
               }
           }
       }
