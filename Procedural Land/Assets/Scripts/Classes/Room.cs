@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿public class Room
+{
+  public int x, y, width, height;
 
-public class Room : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+  public Room(int x, int y, int width, int height)
+  {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
 }

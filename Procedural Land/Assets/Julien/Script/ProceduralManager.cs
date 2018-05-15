@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 using System.Text;
 using System.IO;
 
-public class ProceduralManager : MonoBehaviour
+public class ProceduralManager
 {
 
   public static ProceduralManager Instance;
@@ -17,18 +16,7 @@ public class ProceduralManager : MonoBehaviour
 
   public char[,] tableau;
 
-  class Room
-  {
-    public int x, y, width, height;
-
-    public Room(int x, int y, int width, int height)
-    {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-    }
-  }
+    
 
   Room room;
 
@@ -37,8 +25,8 @@ public class ProceduralManager : MonoBehaviour
   {
     Instance = this;
 
-    CreateFolder();
-    CreateBase();
+//    CreateFolder();
+//    CreateBase();
 //    CreateWall();
  
   }

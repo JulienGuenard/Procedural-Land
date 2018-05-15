@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class Master_Dungeon : MonoBehaviour
 {
-  static string folder_name;
+  static string folderName;
 
-  static void Main(string[] args)
+  void Awake()
+  {
+    Main();
+  }
+
+  static void Main(/*string[] args*/)
   {
     // Parameter
     int width = 30;
@@ -15,8 +20,8 @@ public class Master_Dungeon : MonoBehaviour
 
     // Create folder
     string date = DateTime.Now.ToString("yyyy_MM_dd-HH'h'mm'm'ss's'");
-    Master_Dungeon.folder_name = System.IO.Directory.GetCurrentDirectory() + "\\" + "View\\" + date;
-    System.IO.Directory.CreateDirectory(Master_Dungeon.folder_name);
+    folderName = System.IO.Directory.GetCurrentDirectory() + "\\" + "Assets\\" + "View\\" + date;
+    System.IO.Directory.CreateDirectory(folderName);
 
     // Random
     Master_Random master_random = new Master_Random();
@@ -93,10 +98,11 @@ public class Master_Dungeon : MonoBehaviour
 
   public static void write_txt(string name, string data)
   {
-    //  string date = DateTime.Now.ToString("yyyy_MM_dd-HH'h'mm'm'ss's'");
-    // string folderName = System.IO.Directory.GetCurrentDirectory() + "\\" + "Assets\\" + "View\\" + date;
+    Debug.Log("aaa");
+    string date = DateTime.Now.ToString("yyyy_MM_dd-HH'h'mm'm'ss's'");
+    string folderName = System.IO.Directory.GetCurrentDirectory() + "\\" + "Assets\\" + "View\\" + date;
 
-    string path = ProceduralManager.folderName + "/" + name;
+    string path = folderName + "/" + name;
     System.IO.File.WriteAllText(path, data);
     path = System.IO.Directory.GetCurrentDirectory() + "\\" + "View\\" + "current\\" + name;
 //    System.IO.File.WriteAllText(path, data);
@@ -110,7 +116,6 @@ public class Master_Dungeon : MonoBehaviour
       {
         for (int x = 0; x <= arr_tile.GetUpperBound(0); x++)
           {
-            Debug.Log("aaa");
             char tile = arr_tile[x, y];
             data += tile.ToString();
           }

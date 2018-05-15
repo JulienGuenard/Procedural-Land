@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class Master_Random : MonoBehaviour {
+public class Master_Random
+{
+  Random rnd = new Random();
 
   public void data_in()
   {
@@ -31,7 +33,7 @@ public class Master_Random : MonoBehaviour {
 
   public int data_out()
   {
-    return 0;
+    return rnd.Next();
   }
 
   public void kill()
