@@ -14,7 +14,7 @@ public class ProceduralManager : MonoBehaviour
   public int width = 30;
   public int height = 30;
 
-  static string folderName;
+  public static string folderName;
 
   public char[,] tableau;
 
@@ -79,6 +79,33 @@ public class ProceduralManager : MonoBehaviour
               }
           }
       }
+
+
+
+//      for (int i = 0; i < room.width; i++)
+//        {
+//          for (int j = 0; j < room.height; j++)
+//            {
+//              tableau[i, j] = ' ';
+//              if (i == 0)
+//                {
+//                  tableau[i, j] = '1';
+//                }
+//              if (i == room.width - 1)
+//                {
+//                  tableau[i, j] = '1';
+//                }
+//
+//              if (j == 0)
+//                {
+//                  tableau[i, j] = '1';
+//                }
+//              if (j == room.height - 1)
+//                {
+//                  tableau[i, j] = '1';
+//                }
+//            }
+//        }
           
     string path = "Dungeon.txt";
 

@@ -93,10 +93,10 @@ public class Master_Dungeon : MonoBehaviour
 
   public static void write_txt(string name, string data)
   {
-    string date = DateTime.Now.ToString("yyyy_MM_dd-HH'h'mm'm'ss's'");
-    string folderName = System.IO.Directory.GetCurrentDirectory() + "\\" + "Assets\\" + "View\\" + date;
+    //  string date = DateTime.Now.ToString("yyyy_MM_dd-HH'h'mm'm'ss's'");
+    // string folderName = System.IO.Directory.GetCurrentDirectory() + "\\" + "Assets\\" + "View\\" + date;
 
-    string path = folderName + "/" + name;
+    string path = ProceduralManager.folderName + "/" + name;
     System.IO.File.WriteAllText(path, data);
     path = System.IO.Directory.GetCurrentDirectory() + "\\" + "View\\" + "current\\" + name;
 //    System.IO.File.WriteAllText(path, data);
@@ -110,6 +110,7 @@ public class Master_Dungeon : MonoBehaviour
       {
         for (int x = 0; x <= arr_tile.GetUpperBound(0); x++)
           {
+            Debug.Log("aaa");
             char tile = arr_tile[x, y];
             data += tile.ToString();
           }
