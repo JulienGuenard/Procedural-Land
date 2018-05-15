@@ -1,92 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
+using System;
 
-public class Master_Room : MonoBehaviour
+public class Master_Room
 {
   Room room;
-  char[,] tableau;
+ 
   List<Room> listRoom = new List<Room>();
   int numberWall = 5;
 
   int widthMin = 5;
   int heightMin = 5;
 
+  Random rnd = new Random();
+
   public void data_in(int seed, int width, int height)
   {
-    // Wall
+    // Base
+    char[,] tableau = new char[width, height];
+    room = new Room(0, 0, width, height);
+    listRoom.Add(room);
 
-    int widthNew = Random.Range(room.width - room.width, room.width);
-    int heightNew = Random.Range(room.height - room.height, room.height);
-
-    for (int w = 0; w < numberWall; w++)
+    int widthNew = rnd.Next(room.width - room.width, room.width);
+    int heightNew = rnd.Next(room.height - room.height, room.height);
+ 
+    for (int i = 0; i < room.width; i++)
       {
-        if (listRoom.Count != 0)
+        for (int j = 0; j < room.height; j++)
           {
-              
-            if (Random.Range(1, 3) == 1)
-              {
-                room = new Room(0, 0, listRoom[0].width / 2, height);
-              } else
-              {
-                room = new Room(0, 0, listRoom[0].width, height / 2);
-              }
-            listRoom.RemoveAt(0);
-          } else
-          {
-            room = new Room(0, 0, width, height);
-            tableau = Master_Dungeon.create_board(room.width, room.height);
-            for (int i = 0; i < room.width; i++)
-              {
-                for (int j = 0; j < room.height; j++)
-                  {
-                    tableau[i, j] = ' ';
-                  }
-              }
-          }
-          
-        listRoom.Add(room);
-
-        // Base
-        for (int i = 0; i < room.width; i++)
-          {
-            for (int j = 0; j < room.height; j++)
-              {
-                if (i == 0)
-                  {
-                    tableau[i, j] = '1';
-                  }
-                if (i == room.width - 1)
-                  {
-                    tableau[i, j] = '1';
-                  }
-
-                if (j == 0)
-                  {
-                    tableau[i, j] = '1';
-                  }
-                if (j == room.height - 1)
-                  {
-                    tableau[i, j] = '1';
-                  }
-              }
+            tableau[i, j] = ' ';
           }
       }
-      
-    /*   for (int w = 0; w < wallNumber; w++)
-      {
-        listRoom.Add(room);
-        for (int i = 0; i < room.width; i++)
-          {
-            tableau[i, room.height / 2] = '1';
-          }
-      }*/
 
+    CreateWall(tableau);
 
+    // Wall
+
+//      rnd.
+//    for (int w = 0; w < numberWall; w++)
+//      {
+//        if (Random.Range(1, 3) == 1)
+//          {
+//            room = new Room(0, 0, listRoom[0].width, height);
+//          } else
+//          {
+//            room = new Room(0, 0, listRoom[0].width, height / 2);
+//          }
+//      }
 
     string path = "Dungeon_Base.txt";
     Master_Dungeon.write_txt(path, tableau);
 
+  }
+
+  void CreateWall(char[,] tableau)
+  {
+    for (int i = 0; i < room.width; i++)
+      {
+        for (int j = 0; j < room.height; j++)
+          {
+            if (i == 0)
+              {
+                tableau[i, j] = '1';
+              }
+            if (i == room.width - 1)
+              {
+                tableau[i, j] = '1';
+              }
+
+            if (j == 0)
+              {
+                tableau[i, j] = '1';
+              }
+            if (j == room.height - 1)
+              {
+                tableau[i, j] = '1';
+              }
+          }
+      }
   }
 
   public void phase_begin()
