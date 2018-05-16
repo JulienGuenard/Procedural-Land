@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Dungeon;
 
 public class Master_Door : MonoBehaviour {
 
+  List<Room> list_room;
+
   public void data_in(List<Room> list_room, Web web, int width, int height)
   {
-
+    this.list_room = list_room;
   }
 
   public void phase_begin()
@@ -18,8 +22,7 @@ public class Master_Door : MonoBehaviour {
   {
 
   }
-
-  public void phase_end()
+    public void phase_end()
   {
 
   }

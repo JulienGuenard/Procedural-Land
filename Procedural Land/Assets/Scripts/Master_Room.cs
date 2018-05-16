@@ -1,118 +1,88 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using System;
 
-public class Master_Room
-{
-  Room room;
- 
-  List<Room> listRoom = new List<Room>();
-  int numberWall = 5;
+public class Master_Room {
+    
+    private Random currentSeed;
+    private int dungeonWidth;
+    private int dungeonHeight;
+    private Room currentRoom;
+    private int minimalSize = 3;
+    private List<Room> intermediateRooms = new List<Room>();
+    private List<Room> roomsGenerated = new List<Room>();
 
-  int widthMin = 5;
-  int heightMin = 5;
+    public void data_in(Int32 seed, int width, int height)
+    {
+        currentSeed = new Random(seed);
+        dungeonWidth = width;
+        dungeonHeight = height;
+    }
 
-  Random rnd = new Random();
+    public void phase_begin()
+    {
+        intermediateRooms.Add(new Room(0, 0, dungeonWidth, dungeonHeight));
+    }
 
-  public void data_in(int seed, int width, int height)
-  {
-    // Base
-    char[,] tableau = new char[width, height];
-    room = new Room(0, 0, width, height);
-    listRoom.Add(room);
+    public void phase_update()
+    {
+        if (intermediateRooms.Count > 0)
+        {
+            currentRoom = intermediateRooms[0];
+            if (currentRoom.x + minimalSize <= currentRoom.width - minimalSize)
+            {
+                int newX = currentSeed.Next(currentRoom.x + minimalSize, currentRoom.width - minimalSize);
+                intermediateRooms.Add(new Room(currentRoom.x, currentRoom.y, newX - currentRoom.x + 1, currentRoom.height));
+                intermediateRooms.Add(new Room(newX, currentRoom.y, currentRoom.width - (newX - currentRoom.x), currentRoom.height));
+            }
+            else if (currentRoom.y + minimalSize <= currentRoom.height - minimalSize)
+            {
+                int newY = currentSeed.Next(currentRoom.y + minimalSize, currentRoom.height - minimalSize);
+                intermediateRooms.Add(new Room(currentRoom.x, currentRoom.y, currentRoom.width, newY - currentRoom.y + 1));
+                intermediateRooms.Add(new Room(currentRoom.x, newY, currentRoom.width, currentRoom.height - (newY - currentRoom.y)));
+            }
+            else
+            {
+                roomsGenerated.Add(currentRoom);
+            }
+            intermediateRooms.Remove(currentRoom);
+            phase_update();
+        }
+    }
 
-    int widthNew = rnd.Next(room.width - room.width, room.width);
-    int heightNew = rnd.Next(room.height - room.height, room.height);
- 
-    for (int i = 0; i < room.width; i++)
-      {
-        for (int j = 0; j < room.height; j++)
-          {
-            tableau[i, j] = ' ';
-          }
-      }
+    public void phase_end()
+    {
 
-    CreateWall(tableau);
+    }
 
-    // Wall
+    public void view()
+    {
 
-//      rnd.
-//    for (int w = 0; w < numberWall; w++)
-//      {
-//        if (Random.Range(1, 3) == 1)
-//          {
-//            room = new Room(0, 0, listRoom[0].width, height);
-//          } else
-//          {
-//            room = new Room(0, 0, listRoom[0].width, height / 2);
-//          }
-//      }
+    }
 
-    string path = "Dungeon_Base.txt";
-    Master_Dungeon.write_txt(path, tableau);
+    public List<Room> data_out()
+    {
+        return roomsGenerated;
+    }
 
-  }
+    public void kill()
+    {
 
-  void CreateWall(char[,] tableau)
-  {
-    for (int i = 0; i < room.width; i++)
-      {
-        for (int j = 0; j < room.height; j++)
-          {
-            if (i == 0)
-              {
-                tableau[i, j] = '1';
-              }
-            if (i == room.width - 1)
-              {
-                tableau[i, j] = '1';
-              }
+    }
 
-            if (j == 0)
-              {
-                tableau[i, j] = '1';
-              }
-            if (j == room.height - 1)
-              {
-                tableau[i, j] = '1';
-              }
-          }
-      }
-  }
-
-  public void phase_begin()
-  {
-
-  }
-
-  public void phase_update()
-  {
-
-  }
-
-  public void phase_end()
-  {
-
-  }
-
-  public void view()
-  {
-
-  }
-
-  public List<Room> data_out()
-  {
-    return new List<Room>();
-  }
-
-  public void kill()
-  {
-
-  }
-
-  public static void draw_layer_txt(char[,] arr_tile, List<Room> list_room)
-  {
-
-  }
+    public static void draw_layer_txt(char[,] arr_tile, List<Room> list_room)
+    {
+        foreach (Room room in list_room)
+        {
+            for (int i = room.x; i < room.x + room.width; i++)
+            {
+                for (int j = room.y; j < room.y + room.height; j++)
+                {
+                    if (i == room.x || i == room.x + room.width - 1 || j == room.y || j == room.y + room.height - 1)
+                    {
+                        arr_tile[i, j] = '1';
+                    }
+                }
+            }
+        }
+    }
 }
